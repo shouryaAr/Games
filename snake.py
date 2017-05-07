@@ -10,7 +10,9 @@ else:
     print("(+) PyGame successfully initialized!")
 
 # Play Surface
-playSurface = pygame.display.set_mode((720,460))
+X = 1920
+Y = 1080
+playSurface = pygame.display.set_mode((X, Y))
 pygame.display.set_caption('Snake Game')
 time.sleep(5)
 
@@ -28,7 +30,7 @@ fpsController = pygame.time.Clock()
 snakePos = [100, 50]
 snakeBody = [[100, 50], [90, 50], [80, 50]]
 
-foodPos = [random.randrange(1, 72) * 10, random.randrange(1, 46) * 10]
+foodPos = [random.randrange(1, X/10) * 10, random.randrange(1, Y/10) * 10]
 foodSpawn = True
 
 direction = 'RIGHT'
@@ -40,17 +42,15 @@ myFont = pygame.font.SysFont('monaco', 72)
 
 # Game over fuction
 def gameOver():
-    # myFont = pygame.font.SysFont('monaco', 72)
     GOsurf = myFont.render('Game over!', True, red)
     GOrect = GOsurf.get_rect()
-    GOrect.midtop = (360, 15)
+    GOrect.midtop = (X/2, 20)
     playSurface.blit(GOsurf, GOrect)
     showScore(0)
     pygame.display.flip()
     time.sleep(5)
     pygame.quit()  # pygame exit
     sys.exit()  # console
-
 
 def showScore(choice=1):
     scoreFont = pygame.font.SysFont('monaco', 24)
@@ -59,11 +59,9 @@ def showScore(choice=1):
     if choice == 1:
         Srect.midtop = (100, 10)
     else:
-        Srect.midtop = (360, 120)
+        Srect.midtop = (X/2, Y/2)
     playSurface.blit(Ssurf, Srect)
 
-
-# gameOver()
 # time.sleep(10)
 
 # Main logic of the game
@@ -111,7 +109,7 @@ while True:
         snakeBody.pop()
 
     if foodSpawn == False:
-        foodPos = [random.randrange(1, 72) * 10, random.randrange(1, 46) * 10]
+        foodPos = [random.randrange(1, X/10) * 10, random.randrange(1, Y/10) * 10]
     foodSpawn = True
 
     playSurface.fill(white)
@@ -120,9 +118,9 @@ while True:
 
     pygame.draw.rect(playSurface, brown, pygame.Rect(foodPos[0], foodPos[1], 10, 10))
 
-    if snakePos[0] > 710 or snakePos[0] < 0:
+    if snakePos[0] > X-10 or snakePos[0] < 0:
         gameOver()
-    if snakePos[1] > 450 or snakePos[1] < 0:
+    if snakePos[1] > Y-10 or snakePos[1] < 0:
         gameOver()
 
     for block in snakeBody[1:]:
