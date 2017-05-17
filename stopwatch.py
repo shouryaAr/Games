@@ -41,7 +41,7 @@ def reset():
 StopwatchFrame = Frame(master, width=200, height=100)
 StopwatchFrame.pack()
 
-StartButton = Button(StopwatchFrame, text="Start", command=start)
+StartButton = Button(StopwatchFrame, text="Start", height=10, command=start)
 StartButton.grid(row=0, column=0)
 
 StopButton = Button(StopwatchFrame, text="Stop", command=stop)
