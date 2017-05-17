@@ -38,19 +38,22 @@ def reset():
     ScoreText = ScorePattern.format(score[0], score[1])
     ScoreLabel.configure(text="Score: " + ScoreText)
 
-StartButton = Button(master, text="Start", command=start)
+StopwatchFrame = Frame(master, width=200, height=100)
+StopwatchFrame.pack()
+
+StartButton = Button(StopwatchFrame, text="Start", command=start)
 StartButton.grid(row=0, column=0)
 
-StopButton = Button(master, text="Stop", command=stop)
+StopButton = Button(StopwatchFrame, text="Stop", command=stop)
 StopButton.grid(row=0, column=1)
 
-ResetButton = Button(master, text="Reset", command=reset)
+ResetButton = Button(StopwatchFrame, text="Reset", command=reset)
 ResetButton.grid(row=0, column=2)
 
-TimeLabel = Label(master, text="0:00:0", font=("Calibri", 72))
+TimeLabel = Label(StopwatchFrame, text="0:00:0", font=("Calibri", 72))
 TimeLabel.grid(row=2, column = 0, columnspan=3)
 
-ScoreLabel = Label(master, text="Score: 0/0", font=("Calibri", 32))
+ScoreLabel = Label(StopwatchFrame, text="Score: 0/0", font=("Calibri", 32))
 ScoreLabel.grid(row=1, column = 0, columnspan=3)
 
 def time_update():
