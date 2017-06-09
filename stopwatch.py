@@ -41,19 +41,19 @@ def reset():
 StopwatchFrame = Frame(master, width=200, height=100)
 StopwatchFrame.pack()
 
-StartButton = Button(StopwatchFrame, text="Start", height=10, command=start)
+StartButton = Button(StopwatchFrame, text="Start", height=2, width=5, command=start, font=("Calibri", 32))
 StartButton.grid(row=0, column=0)
 
-StopButton = Button(StopwatchFrame, text="Stop", command=stop)
+StopButton = Button(StopwatchFrame, text="Stop", height=2, width=5, command=stop, font=("Calibri", 32))
 StopButton.grid(row=0, column=1)
 
-ResetButton = Button(StopwatchFrame, text="Reset", command=reset)
+ResetButton = Button(StopwatchFrame, text="Reset", height=2, width=5, command=reset, font=("Calibri", 32))
 ResetButton.grid(row=0, column=2)
 
 TimeLabel = Label(StopwatchFrame, text="0:00:0", font=("Calibri", 72))
 TimeLabel.grid(row=2, column = 0, columnspan=3)
 
-ScoreLabel = Label(StopwatchFrame, text="Score: 0/0", font=("Calibri", 32))
+ScoreLabel = Label(StopwatchFrame, text="Score: 0/0", font=("Calibri", 32), fg="green")
 ScoreLabel.grid(row=1, column = 0, columnspan=3)
 
 def time_update():
