@@ -1,1 +1,1 @@
-Simple games created in python.
+Simple games created with Python.
