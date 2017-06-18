@@ -41,9 +41,7 @@ def new_game():
 def click(event):
     global state, turns, cardone, cardtwo, rect1, rect2, text1, text2
     x, y = event.x, event.y
-    print(event.widget)
     print('{}, {}'.format(x, y))
-    print(repr(MemoryCanvas))
     currentw = MemoryCanvas.winfo_width()
     currenth = MemoryCanvas.winfo_height()
     #print(str(currentw)+ " " + str(currenth))
@@ -136,13 +134,8 @@ def draw_cards(cardw = 0, cardh = 150):
         x=0
         y+=cardh
 
-def enter(event):
-    print("Entered")
-    print(event.widget)
-
 new_game()
 draw_cards(100, 150)
 MemoryCanvas.addtag_all("all")
-master.bind('<Button-1>', click)
-master.bind('<Enter>', enter)
+MemoryCanvas.bind('<Button-1>', click)
 mainloop()
