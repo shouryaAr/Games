@@ -30,31 +30,32 @@ def new_game():
     random.shuffle(deck)
     exposed=[False]*len(deck)
     state = 0
-    draw_cards()
-    print(deck)
-    print(exposed)
+    currentw = MemoryCanvas.winfo_width()
+    currenth = MemoryCanvas.winfo_height()
+    cardw = currentw / 5
+    cardh = currenth / 4
+    draw_cards(cardw, cardh)
+    #print(deck)
+    #print(exposed)
 
 def click(event):
     global state, turns, cardone, cardtwo, rect1, rect2, text1, text2
     x, y = event.x, event.y
     print('{}, {}'.format(x, y))
-    #card=(x // 100)+(y // 150)*5
-    #print("Card is " + str(card))
     currentw = MemoryCanvas.winfo_width()
     currenth = MemoryCanvas.winfo_height()
-    print(str(currentw)+ " " + str(currenth))
+    #print(str(currentw)+ " " + str(currenth))
     cardw = currentw / 5
     cardh = currenth / 4
-    print(str(cardw)+ " " + str(cardh))
+    #print(str(cardw)+ " " + str(cardh))
     card=int((x // cardw)+(y // cardh)*5)
     print("Card is " + str(card))
-    
-    '''
+
     if exposed[card] == False:
         if state == 0:
-            rect1 = MemoryCanvas.create_rectangle(x // 100 * 100, y // 150 * 150, x // 100 * 100 + 100,
-                                                  y // 150 * 150 + 150, fill="blue")
-            text1 = MemoryCanvas.create_text(x // 100 * 100 + 50, y // 150 * 150 + 75, text=deck[card], fill="white",
+            rect1 = MemoryCanvas.create_rectangle(x // cardw * cardw, y // cardh * cardh, x // cardw * cardw + cardw,
+                                                  y // cardh * cardh + cardh, fill="blue")
+            text1 = MemoryCanvas.create_text(x // cardw * cardw + cardw/2, y // cardh * cardh + cardh/2, text=deck[card], fill="white",
                                              font=("Calibri", 72))
             print("card is " + str(card) + " and is true")
             cardone = card
@@ -62,9 +63,9 @@ def click(event):
             state = 1
             print(state)
         elif state == 1:
-            rect2 = MemoryCanvas.create_rectangle(x // 100 * 100, y // 150 * 150, x // 100 * 100 + 100,
-                                                  y // 150 * 150 + 150, fill="blue")
-            text2 = MemoryCanvas.create_text(x // 100 * 100 + 50, y // 150 * 150 + 75, text=deck[card], fill="white",
+            rect2 = MemoryCanvas.create_rectangle(x // cardw * cardw, y // cardh * cardh, x // cardw * cardw + cardw,
+                                                  y // cardh * cardh + cardh, fill="blue")
+            text2 = MemoryCanvas.create_text(x // cardw * cardw + cardw/2, y // cardh * cardh + cardh/2, text=deck[card], fill="white",
                                              font=("Calibri", 72))
             print("card is " + str(card) + " and is true")
             cardtwo = card
@@ -83,13 +84,12 @@ def click(event):
                 MemoryCanvas.itemconfig(text2, fill="Green")
             cardone = card
             exposed[cardone] = True
-            rect1 = MemoryCanvas.create_rectangle(x // 100 * 100, y // 150 * 150, x // 100 * 100 + 100,
-                                                  y // 150 * 150 + 150, fill="blue")
-            text1 = MemoryCanvas.create_text(x // 100 * 100 + 50, y // 150 * 150 + 75, text=deck[card], fill="white",
+            rect1 = MemoryCanvas.create_rectangle(x // cardw * cardw, y // cardh * cardh, x // cardw * cardw + cardw,
+                                                  y // cardh * cardh + cardh, fill="blue")
+            text1 = MemoryCanvas.create_text(x // cardw * cardw + cardw/2, y // cardh * cardh + cardh/2, text=deck[card], fill="white",
                                              font=("Calibri", 72))
             state = 1
             print(state)
-     '''
     
 #MemoryFrame = Frame(master, width=100, height=100, bg="black")
 #MemoryFrame.grid(row=0, column = 0)
@@ -117,26 +117,25 @@ MemoryCanvas.create_rectangle(300, 0, 401, 151, fill="blue")
 MemoryCanvas.create_rectangle(400, 0, 501, 151, fill="blue")
 '''
 
-def draw_cards():
+def draw_cards(cardw = 0, cardh = 150):
     x=0
     y=0
-    xe=101
-    ye=151
+    xe=cardw+1
+    ye=cardh+1
     rows=list(range(0, 4))
     columns=list(range(0, 5))
     for row in rows:
         for column in columns:
             MemoryCanvas.create_rectangle(x, y, xe, ye, fill="green")
-            x+=100
-            xe+=100
-            column+=1
-        xe=101
-        ye+=150
+            x+=cardw
+            xe+=cardw
+        xe=cardw+1
+        ye+=cardh
         x=0
-        y+=150
+        y+=cardh
 
 new_game()
-draw_cards()
+draw_cards(100, 150)
 MemoryCanvas.addtag_all("all")
 master.bind('<Button-1>', click)
 mainloop()
