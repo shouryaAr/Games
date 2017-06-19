@@ -70,24 +70,12 @@ def click(event):
     card = int((x // cardw)+(y // cardh)*5)
     if exposed[card] == False:
         if state == 0:
-            '''
-            rect1 = MemoryCanvas.create_rectangle(x // cardw * cardw, y // cardh * cardh, x // cardw * cardw + cardw,
-                                                  y // cardh * cardh + cardh, fill="blue")
-            text1 = MemoryCanvas.create_text(x // cardw * cardw + cardw/2, y // cardh * cardh + cardh/2, text=deck[card], fill="white",
-                                             font=("Calibri", 72))
-            '''
             cardone = card
             exposed[cardone] = True
             MemoryCanvas.itemconfig(drawing[cardone], fill="Blue")
             MemoryCanvas.itemconfig(numbers[cardone], fill="White")
             state = 1
         elif state == 1:
-            '''
-            rect2 = MemoryCanvas.create_rectangle(x // cardw * cardw, y // cardh * cardh, x // cardw * cardw + cardw,
-                                                  y // cardh * cardh + cardh, fill="blue")
-            text2 = MemoryCanvas.create_text(x // cardw * cardw + cardw/2, y // cardh * cardh + cardh/2, text=deck[card], fill="white",
-                                             font=("Calibri", 72))
-            '''
             cardtwo = card
             exposed[cardtwo] = True
             MemoryCanvas.itemconfig(drawing[cardtwo], fill="Blue")
@@ -105,16 +93,9 @@ def click(event):
                 MemoryCanvas.itemconfig(numbers[cardtwo], fill="Green")
             cardone = card
             exposed[cardone] = True
-            '''
-            rect1 = MemoryCanvas.create_rectangle(x // cardw * cardw, y // cardh * cardh, x // cardw * cardw + cardw,
-                                                  y // cardh * cardh + cardh, fill="blue")
-            text1 = MemoryCanvas.create_text(x // cardw * cardw + cardw/2, y // cardh * cardh + cardh/2, text=deck[card], fill="white",
-                                             font=("Calibri", 72))
-            '''
             MemoryCanvas.itemconfig(drawing[cardone], fill="Blue")
             MemoryCanvas.itemconfig(numbers[cardone], fill="White")
             state = 1
-    
 
 MemoryFrame = Frame(master, bg="black")
 MemoryFrame.pack(fill=BOTH, expand=YES)
@@ -127,14 +108,6 @@ RestartButton.grid(row=0, column=0)
 
 MemoryCanvas = ResizingCanvas(master, width=500, height=600, bg="red", highlightthickness=0)
 MemoryCanvas.pack(fill=BOTH, expand=YES)
-
-'''
-MemoryCanvas.create_rectangle(0, 0, 101, 151, fill="blue")
-MemoryCanvas.create_rectangle(100, 0, 201, 151, fill="blue")
-MemoryCanvas.create_rectangle(200, 0, 301, 151, fill="blue")
-MemoryCanvas.create_rectangle(300, 0, 401, 151, fill="blue")
-MemoryCanvas.create_rectangle(400, 0, 501, 151, fill="blue")
-'''
 
 new_game()
 draw_cards(100, 150)
