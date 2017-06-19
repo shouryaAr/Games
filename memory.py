@@ -110,7 +110,7 @@ MemoryCanvas = ResizingCanvas(master, width=500, height=600, bg="red", highlight
 MemoryCanvas.pack(fill=BOTH, expand=YES)
 
 new_game()
-draw_cards(100, 150)
+draw_cards()
 #MemoryCanvas.addtag_all("all")
 MemoryCanvas.bind('<Button-1>', click)
 mainloop()
