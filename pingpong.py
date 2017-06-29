@@ -27,12 +27,34 @@ RightPos = [X-100, 0, PadWidth, PadHeight]
 BallPos = [X//2, Y//2]
 BallRadius = 30
 BallVel = [0, 0]
-Spawn = random.randrange(0,2)
-BallVel[0] = -random.randrange(120, 240) // 100
-BallVel[1] = -random.randrange(60, 180) // 100
-if Spawn == True:
-    BallVel[0] *= -1
+LEFT = False
+RIGHT = True
 
+def SpawnBall(direction):
+    global BallPos, BallVel
+    BallPos = [X//2, Y//2]
+    BallVel[0] = -random.randrange(120, 240) // 100
+    BallVel[1] = -random.randrange(60, 180) // 100
+    if direction == True:
+        BallVel[0] *= -1
+        print("Ball spawned right")
+
+def NewGame():
+    global score1, score2
+    score1 = 0
+    score2 = 0
+    SpawnBall(random.randrange(0,2))
+
+def ScoreRender():
+    global Surfacefont, Surfacer
+    pygame.init()
+    Font = pygame.font.SysFont('monospace', 40)
+    Surfacefont = Font.render(str(score1), True, red, white)
+    Surfacer = Surfacefont.get_rect()
+    Surfacer.center = (X/2, Y/2)
+
+NewGame()
+ScoreRender()
 
 while True:
 
@@ -61,20 +83,31 @@ while True:
         if LeftPos[1] <= BallPos[1] <= LeftPos[1]+PadHeight:
             BallVel[0] *= -1
             BallVel[1] *= 1
-
+        else:
+            SpawnBall(RIGHT)
+            score2 += 1
+            print("Score 2 is: " + str(score2))
+            ScoreRender()
+            
     elif BallPos[0] >= X - BallRadius - PadWidth:
         if RightPos[1] <= BallPos[1] <= RightPos[1]+PadHeight:
             BallVel[0] *= -1
             BallVel[1] *= 1
-
+        else:
+            SpawnBall(LEFT)
+            score1 += 1
+            print("Score 1 is: " + str(score1))
+            ScoreRender()
+            
     elif BallPos[1] <= BallRadius:
         BallVel[1] = - BallVel[1]
     elif BallPos[1] >= Y - BallRadius:
         BallVel[1] = - BallVel[1]
-
+    
     playSurface.fill(white)
+    playSurface.blit(Surfacefont, Surfacer)
     pygame.draw.rect(playSurface, green, pygame.Rect(LeftPos[0], LeftPos[1], LeftPos[2], LeftPos[3]))
     pygame.draw.rect(playSurface, green, pygame.Rect(RightPos[0], RightPos[1], RightPos[2], RightPos[3]))
     pygame.draw.circle(playSurface, red, BallPos, BallRadius, 0)
     pygame.display.flip()  # update
-    fpsController.tick(60)
+    fpsController.tick(100)
