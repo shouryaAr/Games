@@ -20,10 +20,10 @@ brown = pygame.Color(165, 42, 42)
 fpsController = pygame.time.Clock()
 
 # Variables
-PadWidth = 100
-PadHeight = 300
+PadWidth = 50
+PadHeight = 200
 LeftPos = [0, 0, PadWidth, PadHeight]
-RightPos = [X-100, 0, PadWidth, PadHeight]
+RightPos = [X-PadWidth, 0, PadWidth, PadHeight]
 BallPos = [X//2, Y//2]
 BallRadius = 30
 BallVel = [0, 0]
@@ -46,13 +46,17 @@ def NewGame():
     SpawnBall(random.randrange(0,2))
 
 def ScoreRender():
-    global Surfacefont, Surfacer
+    global Surfacefont1, Surfacer1, Surfacefont2, Surfacer2
     pygame.init()
     Font = pygame.font.SysFont('monospace', 40)
-    Surfacefont = Font.render(str(score1), True, red, white)
-    Surfacer = Surfacefont.get_rect()
-    Surfacer.center = (X/2, Y/2)
-
+    
+    Surfacefont1 = Font.render(str(score1), True, red, white)
+    Surfacer1 = Surfacefont1.get_rect()
+    Surfacer1.center = (X/4, Y/4)
+    Surfacefont2 = Font.render(str(score2), True, red, white)
+    Surfacer2 = Surfacefont2.get_rect()
+    Surfacer2.center = (X/4*3, Y/4)
+        
 NewGame()
 ScoreRender()
 
@@ -69,11 +73,11 @@ while True:
     keys = pygame.key.get_pressed()
     if keys[ord('w')] and LeftPos[1]>=10:
         LeftPos[1] -= 10
-    if keys[ord('s')] and LeftPos[1]<=Y-310:
+    if keys[ord('s')] and LeftPos[1]<=Y-PadHeight-10:
         LeftPos[1] += 10
     if keys[pygame.K_UP] and RightPos[1]>=10:
         RightPos[1] -= 10
-    if keys[pygame.K_DOWN] and RightPos[1]<=Y-310:
+    if keys[pygame.K_DOWN] and RightPos[1]<=Y-PadHeight-10:
         RightPos[1] += 10
 
     BallPos[0] += BallVel[0]
@@ -105,7 +109,8 @@ while True:
         BallVel[1] = - BallVel[1]
     
     playSurface.fill(white)
-    playSurface.blit(Surfacefont, Surfacer)
+    playSurface.blit(Surfacefont1, Surfacer1)
+    playSurface.blit(Surfacefont2, Surfacer2)
     pygame.draw.rect(playSurface, green, pygame.Rect(LeftPos[0], LeftPos[1], LeftPos[2], LeftPos[3]))
     pygame.draw.rect(playSurface, green, pygame.Rect(RightPos[0], RightPos[1], RightPos[2], RightPos[3]))
     pygame.draw.circle(playSurface, red, BallPos, BallRadius, 0)
